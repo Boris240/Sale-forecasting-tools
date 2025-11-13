@@ -1,6 +1,6 @@
 
 
-################################### SET OF LIBRARY USED##############################################################
+################################### SET OF LIBRARY USED ##############################################################
 
 library(readxl) # To read a excel data
 
@@ -31,7 +31,7 @@ library(prophet)
 
 
 
-Database <- read_excel("C:/Users/a535948/Desktop/SPP forecast project directory/Data/DatabaseV2.xlsx")
+Database <- read_excel("Confidential")
 
 
 # Initialize a temporary in DATA database 
@@ -47,17 +47,8 @@ table <- tbl(connection, "Database")
 
 
 ## Call of visualization function
-source('C:/Users/a535948/Desktop/SPP forecast project directory/Forecast_job/Visualization_job.R')
+source('Confidential/Visualization_job.R')
 
-
-
-VizCtry(c('Algeria', 'Argentina', 'Australia', 'Austria', 'Belarus',
-          'Belgium', 'Bosnia and Herzegovina', 'Botswana', 'Brazil',
-          'Bulgaria', 'Canada', 'Chile', 'China', 'China Domestic',
-          'China External', 'Croatia', 'Cyprus', 'Czech Republic', 'Denmark',
-          'Estonia', 'Finland', 'France', 'French Guyana'), range=1995:2024, segment = "Heavy Duty", Indicator = 'SALES_TMI')
-
-VizInd(country = 'Belarus',  segment = "Heavy Duty", Indicators  = c('SALES_TMI','CSP_TOT_USD'), range=1990:2024)
 
 
 
@@ -74,52 +65,48 @@ VizInd(country = 'Belarus',  segment = "Heavy Duty", Indicators  = c('SALES_TMI'
 
 ### supply feature
 
-supply<- c('COAL_IDX',
-            'GAS_IDX',
-            'OIL_IDX',
-            'AGRI_WLD',
-            'ALU_USD',
-            'COM_IDX',
-            'ENG_CCPI',
-            'COP_USD',
-            'ENG_WLD',
-            'GAS_WLD',
-            'LITH_C_USD',
-            'LITH_H_USD',
-            'OIL_WPI_BRENT',
-            'PRICE_FUEL_WI',
-            'IR_CB',
-            'IR_LEND',
-            'INV_TFI_USD',
-            'CS_IDX')
+supply<- c("Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+           "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential")
 
 
 ### demand feature
 
-demand <- c('CSP_HOUS_USD',
-            'CS_NPTS_USD',
-            'CS_PTRC_USD',
-            'CSP_TOT_USD',
-            'CS_TSVP_USD',
-            'CSP_VEH_USD',
-            'RS_IDX',
-            'EXP_USD',
-            'IMP_GS_CPE_USD',
-            'GDP_IND_REAL',
-            'GVA_AGRF_REAL',
-            'GDP_CPE_USD',
-            'GVA_CONS_REAL',
-            'GVA_MANUF_REAL',
-            'GVA_SERV_REAL',
-            'IP_MAN',
-            'EMP_TOT',
-            'GDP_PC_REAL',
-            'POP_TOT',
-            'RE_CPI',
-            'URB_POP_PCT',
-            'IP_IDX')
+demand <- c("Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+           "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential")
 
-Identificator <- c("OXLO_CODE", "COUNTRY", "ISO3_CODE", "SEGMENT", "YEAR")
+Identificator <- c("Confidential", "COUNTRY", "Confidential", "Confidential", "YEAR")
 
 
 shock_years <- c(2008, 2009, 2014, 2015, 2020, 2021, 2022)
@@ -127,47 +114,27 @@ shock_years <- c(2008, 2009, 2014, 2015, 2020, 2021, 2022)
 
 ### Saving feature name
 
-Var_labels <- list('COAL_IDX'= 'Domestic price of coal index',
-                   'GAS_IDX'= 'Domestic price of gas index',
-                   'OIL_IDX'= 'Domestic price of oil index',
-                   'AGRI_WLD'= 'World agriculture raw materials price',
-                   'ALU_USD'= 'World aluminum price, US$',
-                   'COM_IDX'= 'World commodity index price, non-fuel',
-                   'ENG_CCPI'= 'Energy component of CPI',
-                   'COP_USD'= 'World copper price, US$',
-                   'ENG_WLD'= 'World Energy Prices: Oil, Gas and Coal',
-                   'GAS_WLD'= 'World gas price',
-                   'LITH_C_USD'= 'World lithium carbonate price, US$',
-                   'LITH_H_USD'= 'World lithium hydroxide price, US$',
-                   'OIL_WPI_BRENT'= 'World oil price index, Brent crude spot',
-                   'PRICE_FUEL_WI'= 'Prices, fuels, wholesale index',
-                   'IR_CB'= 'Interest rate, central bank policy',
-                   'IR_LEND'= 'Interest rate, lending',
-                   'INV_TFI_USD'= 'Total fixed investment, constant prices and exchange rate, US$',
-                   'CS_IDX'= 'Consumer price index',
-                   'CSP_HOUS_USD'= 'Consumer spending, real, US$ - Housing electricity, gas and other fuels' ,
-                   'CS_NPTS_USD'= 'Consumer spending, real, US$ - Non-personal transport services',
-                   'CS_PTRC_USD'= 'Consumer spending, real, US$ - Personal transport running costs',
-                   'CSP_TOT_USD'= 'Consumer spending, real, US$ - Total consumer spending',
-                   'CS_TSVP_USD'= 'Consumer spending, real, US$ - Transport services and vehicle purchases - Total',
-                   'CSP_VEH_USD'= 'Consumer spending, real, US$ - Vehicle purchases',
-                   'RS_IDX'= 'Retail sales, volume index',
-                   'EXP_USD'= 'Exports, goods & services, constant prices and exchange rate, US$',
-                   'IMP_GS_CPE_USD'= 'Imports, goods & services, constant prices and exchange rate, US$',
-                   'GDP_IND_REAL'= 'GDP, industry, real',
-                   'GVA_AGRF_REAL'= 'Gross value added in agriculture and forestry, real',
-                   'GDP_CPE_USD'= 'GDP, constant prices and exchange rate, US$',
-                   'GVA_CONS_REAL'= 'Gross value added in construction, real',
-                   'GVA_MANUF_REAL'= 'Gross value added in manufacturing, real',
-                   'GVA_SERV_REAL'= 'Gross value added in services, real',
-                   'IP_MAN'= 'Industrial production index, Manufacturing',
-                   'EMP_TOT'= 'Employment, total',
-                   'GDP_PC_REAL'= 'GDP per capita, real, US$, constant prices',
-                   'POP_TOT'= 'Population, total',
-                   'RE_CPI'= 'Real Earnings (relative to CPI)',
-                   'URB_POP_PCT'= 'Urban population (% of total)',
-                   'IP_IDX'= 'Industrial production index'
-                   )
+Var_labels <- list("Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+           "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+            "Confidential",
+                   .
+                   .
+                   .
+            "Confidential")
 
 
 
@@ -211,13 +178,13 @@ Var_labels <- list('COAL_IDX'= 'Domestic price of coal index',
                       
                       data_filtered$SHOCK <- ifelse(data_filtered$YEAR %in% shock_years, 1, 0) # Add schok feature
                       
-                      data_filtered <- data_filtered[, c(Identificator, intersect(colnames(data_filtered), c(supply, demand)), 'SHOCK', 'SALES_TMF')]
+                      data_filtered <- data_filtered[, c(Identificator, intersect(colnames(data_filtered), c(supply, demand)), "Confidential", "Confidential")]
                       
                       data_filtered <- data_filtered %>% as_tsibble(index = YEAR)
                       
                       # Feature log-transfomation
                       
-                      vars_to_exclude = c(Identificator, 'INF_CPI_YOY')
+                      vars_to_exclude = c(Identificator, "Confidential")
                       data_filtered <- data_filtered %>%
                         mutate(
                           across(
@@ -317,7 +284,7 @@ Add_Pcomponent <- function (dataframe){
 
 
 
-Build_model <- function(Area, segment,  selected_feature = 'GDP_CPE_USD', data = table){
+Build_model <- function(Area, segment,  selected_feature = "Confidential", data = table){
   
       
                   out <- Build_job_data(Area, segment, data)
@@ -412,7 +379,7 @@ updatefn <- function(pars, model) {
 #### Build running State Space Model (SSM) function
 
 
-Run_SSM <- function(Area, segment,  selected_feature = 'GDP_CPE_USD', data = table) {
+Run_SSM <- function(Area, segment,  selected_feature ="Confidential", data = table) {
   
   
             # Training step
@@ -448,7 +415,7 @@ Run_SSM <- function(Area, segment,  selected_feature = 'GDP_CPE_USD', data = tab
 #### Make a visualization of forecast
 
 
-Make_forecast <- function(Area, segment,  selected_feature = 'GDP_CPE_USD', data = table){
+Make_forecast <- function(Area, segment,  selected_feature ="Confidential", data = table){
   
   # Train model  
   result <- Run_SSM(Area, segment,  selected_feature, data = table)
@@ -555,7 +522,7 @@ Make_forecast <- function(Area, segment,  selected_feature = 'GDP_CPE_USD', data
 
 
 
-Make_backcast <- function(Area, segment,  selected_feature = 'GDP_CPE_USD', data = table){
+Make_backcast <- function(Area, segment,  selected_feature = "Confidential", data = table){
 
 
   # Train model  
@@ -702,7 +669,7 @@ testo$forecast_data
 
 
 
-Forecast_output <- function(Area, segment,  selected_feature = 'GDP_CPE_USD', data = table){
+Forecast_output <- function(Area, segment,  selected_feature = "Confidential", data = table){
   
   
                     out <- Make_forecast(Area, segment,  selected_feature, data = table)
@@ -793,6 +760,7 @@ calc_errors <- function(y_true, y_pred) {
   return(list(MAE = mae, ADJ_mae = adj_mae, RMSE = rmse, 'R²'= r2))
   
 }
+
 
 
 
