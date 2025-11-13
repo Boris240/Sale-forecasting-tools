@@ -13,9 +13,9 @@ options(error = recover)
 #### CALL DATABASE
 
 
-Data_Path <-  "C:/Users/a535948/Desktop/SPP forecast project directory/Shiny App/LTFV_Volvo_group/DATA"
+Data_Path <-  "Confidential_path"
 
-# Initialize a temporary in DATA database 
+# Initialize a temporary in  database 
 connection<- dbConnect(SQLite(), Data_Path)
 
 
@@ -47,8 +47,8 @@ server <- function(input, output, session) {
   
   ## Import function which allow us to make the job
   
-  source('C:/Users/a535948/Desktop/SPP forecast project directory/Forecast_job.R', local = TRUE)
-  source('C:/Users/a535948/Desktop/SPP forecast project directory/Forecast_job/Visualization_job.R', local = TRUE) 
+  source('Confidential_path/Forecast_job.R', local = TRUE)
+  source('Confidential_path/Visualization_job.R', local = TRUE) 
 
   
   
@@ -137,7 +137,7 @@ server <- function(input, output, session) {
       Visualization <- reactive({
         
         req(input$Area, input$Category, input$Drivers)
-        VizInd(country = input$Area,  segment =  input$Category, Indicators  = c('SALES_TMF',input$Drivers), range=1980:2024)
+        VizInd(country = input$Area,  segment =  input$Category, Indicators  = c('SALES',input$Drivers), range=1980:2024)
         
       })
       
@@ -221,7 +221,7 @@ server <- function(input, output, session) {
         
         req(job_data())
         dataset <- job_data()$data
-        correlation_matrix <- cor(dataset[, setdiff(colnames(dataset),c(Identificator,'SHOCK'))], use = "pairwise.complete.obs", method = "pearson")
+        correlation_matrix <- cor(dataset[, setdiff(colnames(dataset),c(Identificator,'Default feature 1'))], use = "pairwise.complete.obs", method = "pearson")
         correlation_matrix
         
       })
@@ -298,8 +298,8 @@ server <- function(input, output, session) {
         labels <- Var_labels[Var_label()$var_names]
         df_PCA <- Var_label()$data[, grep('dim', names(Var_label()$data), ignore.case = TRUE)]
         label_pcavar <- colnames(df_PCA)
-        updatePickerInput(session, 'Drivers', choices =  c(Var_label()$var_names, label_pcavar, 'SHOCK'), choicesOpt = list(
-          subtext = c(as.vector(unlist(labels)), label_pcavar, 'Skock')), selected = "GDP_CPE_USD")
+        updatePickerInput(session, 'Drivers', choices =  c(Var_label()$var_names, label_pcavar, 'Default feature 1'), choicesOpt = list(
+          subtext = c(as.vector(unlist(labels)), label_pcavar, 'Default feature 1')), selected = "Default feature")
         
       })
       
@@ -316,8 +316,8 @@ server <- function(input, output, session) {
         req(input$Options)
         codes_available <- Var_label2()$var_names
         labels <- Var_labels[codes_available]
-        updatePickerInput(session, 'Drivers1', choices =  c(codes_available,  'SHOCK'), choicesOpt = list(
-              subtext = c(as.vector(unlist(labels)),  'Skock')), selected = "GDP_CPE_USD")
+        updatePickerInput(session, 'Drivers1', choices =  c(codes_available,  'Default feature 1'), choicesOpt = list(
+              subtext = c(as.vector(unlist(labels)),  'Default feature 1')), selected = "Default feature")
             
         
       })
@@ -775,6 +775,7 @@ server <- function(input, output, session) {
         })
       
       }
+
 
 
 
